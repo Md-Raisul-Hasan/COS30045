@@ -1,0 +1,50 @@
+body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  }
+  
+  .container {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .leftpane {
+      width: 15%;
+      height: 100%;
+      float: left;
+      background-color: rosybrown;
+      border-collapse: collapse;
+  }
+  
+  .middlepane {
+      width: 50%;
+      height: 100%;
+      float: left;
+      /*background-color: royalblue;*/
+      border-collapse: collapse;
+  }
+  
+  .rightpane {
+    width: 35%;
+    height: 100%;
+    position: relative;
+    float: right;
+    background-color: yellow;
+    border-collapse: collapse;
+  }
+  
+  .toppane {
+    width: 100%;
+    height: 100px;
+    border-collapse: collapse;
+    background-color: #4da6ff;
+  }
+  
+  h1 {
+      padding: 20px;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; /* Defining font-family for h1*/
+      margin: 0; /* Margin set to 0 to reduce wasted space */
+      color: black; /* Assignment requirements define specific colour for H1 */
+  }
