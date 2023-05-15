@@ -1,6 +1,7 @@
 function init (){
     map();
     //chart();
+    extra();
 }
 
 function map() {
@@ -62,6 +63,10 @@ function map() {
             chart(d.properties.Country || d.properties.name);
             //CODE FOR CHANGE CHART HERE
             //PASS OTHER VARIABLES and modify chart function code
+
+            document.getElementById('Choice').value = d.properties.Country || d.properties.name;
+            extra(document.getElementById('Choice').value);
+
           }
           else {
             window.alert("There is on statistical information available for this country!");
@@ -102,10 +107,10 @@ function chart(country) {
 
     var g = svg1.append("g").attr("transform", "translate(" + 50 + "," + 50 + ")");
 
-    d3.csv("csv/migration_2020.csv").then(function (data) { // import csv file
+    d3.csv("csv/Australia_data.csv").then(function (data) { // import csv file
         xScale.domain(
             data.map(function (d) {
-                return d.country;
+                return d.OdName;
             })
         );
         yScale.domain([
@@ -144,7 +149,7 @@ function chart(country) {
             .append("rect")
             .attr("class", "bar")
             .attr("x", function (d) {
-                return xScale(d.country); // plotting csv dataset onto chart (x-axis)
+                return xScale(d.OdName); // plotting csv dataset onto chart (x-axis)
             })
             .attr("y", function (d) {
                 return yScale(d.population); // plotting csv dataset onto chart (y-axis)

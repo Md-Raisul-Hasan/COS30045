@@ -11,6 +11,7 @@
     <title>COS30045 - Data Vis Project - Migration</title>
 
     <!-- Include D3 library -->
+    <script src="script/d3.v3.min.js"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://d3js.org/d3.v7.min.js"></script>
 
@@ -66,10 +67,28 @@
             <svg id="map" width="850" height="530"></svg>
             <div id="tooltip" class="hidden"></div>
         </div>
-        <div class="rightpane">
+        <div class="rightpane" id="rightpane">
             <h1>Remaining charts?</h1>
             <svg id="chart" width="1000" height="400"></svg>
-            <script src="script/map2.js"></script>
+            <p>Select a country:
+                <select id="Choice" class="choice" onchange="extra(this)">
+                  <option value="All" id="All">All</option>
+                  <option value="Australia" id="Australia">Australia</option>
+                  <option value="Afghanistan" id="Afghanistan">Afghanistan</option>
+                  <option value="Algeria" id="Algeria">Algeria</option>
+                  <option value="Botswana" id="Botswana">Botswana</option>
+                  <option value="Canada" id="Canada">Canada</option>
+                  <option value="Germany" id="Germany">Germany</option>
+                  <option value="Iceland" id="Iceland">Iceland</option>
+                  <option value="Japan" id="Japan">Japan</option>
+                  <option value="New Zealand" id="New Zealand">New Zealand</option>
+                  <option value="Sweden" id="Sweden">Sweden</option>
+                  <option value="United Kingdom" id="United Kingdom">United Kingdom</option>
+                </select>
+              </p>
+              <script src="script/map3.js"></script>
+              <script src="script/newChart.js"></script>
+            <script>extra()</script>
         </div>
     </div>
 </body>
