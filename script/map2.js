@@ -1,40 +1,79 @@
 function init (){
     map();
-    chart();
+    //chart();
 }
 
 function map() {
-    // Set width and height of the SVG canvas
-var w = 850;
-var h = 530;
 
-// Set up the path Configure the projection (center, translate, and scale)
-var projection = d3.geoMercator()
-    .center([0, 20])
-    .translate([w / 2, h / 2])
-    .scale(130);
-
-// Set up the path with the projection
-var path = d3.geoPath()
-    .projection(projection);
-
-// Add the SVG canvas to the body
-var svg = d3.select("#map")
-    .attr("width", w)
-    .attr("height", h);
-
-// Read the GeoJSON file and bind it to a path
-d3.json("csv/map.json").then(function(json) {
-    svg.selectAll("path")
-        .data(json.features)
-        .enter()
-        .append("path")
-        .attr("d", path)
-        .attr("fill", "grey");
-});
+    const width = 850;
+    const height = 530;
+    
+    // Create a map projection and path generator
+    const projection = d3.geoMercator().fitSize([width, height], { type: "Sphere" });
+    const pathGenerator = d3.geoPath().projection(projection);
+    
+    // Create a color scale
+    const colorScale = d3.scaleSequential(d3.interpolateBlues).domain([0, 500000]);
+    
+    // Load the data and draw the map
+    function loadData(year, valueColumn) {
+      Promise.all([
+        d3.json("csv/map.json"),
+        d3.csv(`migration_${year}.csv`),
+      ]).then(([worldData, migrationData]) => {
+        // Create a lookup table for migration data
+        const migrationLookup = new Map();
+        migrationData.forEach(d => migrationLookup.set(d.Country, d));
+    
+        // Bind the migration data to the world map
+        const countries = worldData.features;
+        countries.forEach(d => {
+          d.properties = migrationLookup.get(d.properties.name) || {};
+        });
+    
+        // Draw the world map
+        const svg = d3.select("#map");
+        svg.selectAll("path")
+          .data(countries)
+          .join("path")
+          .attr("d", pathGenerator)
+          .attr("stroke", "#000")
+          .attr("fill", d => {
+            const value = d.properties[valueColumn];
+            return value ? colorScale(value) : "#ccc";
+          })
+          .on("mousemove", (event, d) => {
+            // Display tooltip on mousemove
+            d3.select("#tooltip")
+              .style("left", event.pageX + 10 + "px")
+              .style("top", event.pageY + 10 + "px")
+              .html(`
+                <p><strong>Country:</strong> ${d.properties.Country || d.properties.name}</p>
+                <p><strong>${valueColumn}:</strong> ${d.properties[valueColumn] || "N/A"}</p>
+              `)
+              .classed("hidden", false);
+          })
+          .on("click", (event, d) => {
+            // Display tooltip on mousemove
+          console.log("hello");
+          //CODE FOR CHANGE CHART HERE
+          chart("Germany");
+          })
+          
+          .on("mouseout", d => {
+            // Hide tooltip on mouseout
+            d3.select("#tooltip")
+              .classed("hidden", true);
+          });
+      });
+    }
+    
+    // Initialize the visualization
+    loadData(2005, "Outflows of foreign population by nationality(Total)");
+    
 }
 
-function chart() {
+function chart(country) {
     // Set margin, height, width
     var svg1 = d3.select("#chart"),
         margin = 200,
@@ -47,7 +86,7 @@ function chart() {
         .attr("x", 200)
         .attr("y", 50)
         .attr("font-size", "20px")
-        .text("Foreign Migration Statistics 2019/2020"); // set chart title
+        .text(country + " - Foreign Migration Statistics 2019/2020"); // set chart title
 
     var xScale = d3.scaleBand().range([0, width]).padding(0.5), // defining x/y scale
         yScale = d3.scaleLinear().range([height, 0]);

@@ -48,3 +48,15 @@ body, html {
       margin: 0; /* Margin set to 0 to reduce wasted space */
       color: black; /* Assignment requirements define specific colour for H1 */
   }
+
+  .hidden {
+    display: none;
+  }
+  
+  #tooltip {
+    position: absolute;
+    background-color: white;
+    padding: 5px;
+    border: 1px solid black;
+    pointer-events: none;
+  }
