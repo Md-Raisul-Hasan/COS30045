@@ -5,12 +5,13 @@ function init (){
 }
 
 function map() {
-
+    
     const width = 850;
     const height = 530;
     
     // Create a map projection and path generator
     const projection = d3.geoMercator().fitSize([width, height], { type: "Sphere" });
+    
     const pathGenerator = d3.geoPath().projection(projection);
     
     // Create a color scale
