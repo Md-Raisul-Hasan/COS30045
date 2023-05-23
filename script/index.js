@@ -1,17 +1,17 @@
 // Define margins
-const margin = { top: 10, right: 10, bottom: 20, left: 40 };
-const mapWidth = 1500 - margin.left - margin.right;  // 3/4 of screen width
+const margin = {top: 10, right: 10, bottom: 20, left: 40};
+const mapWidth = 900 - margin.left - margin.right;  // 3/4 of screen width
 const mapHeight = 600 - margin.top - margin.bottom;
 const chartWidth = 300 - margin.left - margin.right;  // 1/4 of screen width
 const chartHeight = 600 - margin.top - margin.bottom;
-const left = -140;
+
 // Create SVG for map
 const mapSvg = d3.select("#map")
     .append("svg")
-    .attr("width", mapWidth + left + margin.right)
+    .attr("width", mapWidth + margin.left + margin.right)
     .attr("height", mapHeight + margin.top + margin.bottom)
     .append("g")
-    .attr("transform", `translate(${left}, ${margin.top})`);
+    .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // Create SVG for bar chart
 const chartSvg = d3.select("#chart")
@@ -31,13 +31,13 @@ const chartTitle = chartSvg.append("text")
 let migrationData;
 
 // Create a container for the buttons and country name
-const buttonsDiv = d3.select("#rightpane").append("div");
+const buttonsDiv = d3.select("body").append("div");
 
 // Load CSV data
-d3.csv("csv/migration.csv").then(data => {
+d3.csv("Migration.csv").then(data => {
     migrationData = data;
     // Load and display the World
-    d3.json("script/worldGeo.json").then(world => {
+    d3.json("worldGeo.json").then(world => {
         mapSvg.append("g")
             .selectAll("path")
             .data(world.features)
@@ -58,12 +58,6 @@ d3.csv("csv/migration.csv").then(data => {
                 buttonsDiv.append("button")
                     .text("Pie chart")
                     .on("click", () => updatePiechart(d.properties.name));
-
-                if (d.properties.Country || d.properties.name != undefined) {
-                    document.getElementById('Choice').value = d.properties.Country || d.properties.name;
-                    extra(document.getElementById('Choice').value);
-                    updatePiechart(d.properties.name)
-                }
             });
     });
 });
