@@ -1,96 +1,20 @@
-<html lang="en">
-
+<!DOCTYPE html>
+<html>
 <head>
-    <!-- Meta tags -->
-    <meta charset="UTF-8" />
-    <meta name="description" content="Data Visualisation Project" />
-    <meta name="keywords" content="HTML, CSS, D3" />
-    <meta name="author" content="Vassu Manivasakan, Md Raisul Hasan, Tung Lam Ngo" />
-
-    <!-- Title of the web page -->
-    <title>COS30045 - Data Vis Project - Migration</title>
-
-    <!-- Include D3 library -->
-    <script src="script/d3.v3.min.js"></script>
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <script src="https://d3js.org/d3.v7.min.js"></script>
-
-    <link rel="stylesheet" href="css/style.css">
-
+  <title>Interactive Map</title>
+  <link rel="stylesheet" href="index.css">
 </head>
-
 <body>
-    <div class="container">
-        <div class="toppane">
-            <h1>Australian Migration Statistics 2000-2020 Analysis</h1>
-        </div>
-        <!-- <div class="leftpane">
-            <h1>Navigation Bar with action control?</h1>
-            <form action="#">
-                <label for="cars">Load dataset from year:</label>
-                <select name="year" id="year">
-                    <option value="2001">2001</option>
-                    <option value="2002">2002</option>
-                    <option value="2003">2003</option>
-                    <option value="2004">2004</option>
-                    <option value="2005">2005</option>
-                    <option value="2006">2006</option>
-                    <option value="2007">2007</option>
-                    <option value="2008">2008</option>
-                    <option value="2009">2009</option>
-                    <option value="2010">2010</option>
-                    <option value="2011">2011</option>
-                    <option value="2012">2012</option>
-                    <option value="2013">2013</option>
-                    <option value="2014">2014</option>
-                    <option value="2015">2015</option>
-                    <option value="2016">2016</option>
-                    <option value="2017">2017</option>
-                    <option value="2018">2018</option>
-                    <option value="2019">2019</option>
-                    <option value="2020">2020</option>
-                    <option value="2021">2021</option>
-                    <option value="2022">2022</option>
-                    <option value="2023">2023</option>
-                </select>
-                <br><br>
-                <input type="submit" value="Submit" style="position: centre;">
-                <input type="reset" value="Reset" style="position: centre;">
-            </form>
-            <div class="slidecontainer">
-                <p>Map Control Slider:</p>
-                <input type="range" id="mapZoomRange" min="1" max="100" value="50">
-            </div>
-        </div> -->
-        <div class="middlepane">
-            <h1>Interactive Map</h1>
-            <svg id="map" width="850" height="530"></svg>
-            <div id="tooltip" class="hidden"></div>
-        </div>
-        <div class="rightpane" id="rightpane">
-            <h1>Charts</h1>
-            <svg id="chart" width="1000" height="400"></svg>
-            <p>Select a country:
-                <select id="Choice" class="choice" onchange="extra(this)">
-                  <option value="All" id="All">All</option>
-                  <option value="Australia" id="Australia">Australia</option>
-                  <option value="Afghanistan" id="Afghanistan">Afghanistan</option>
-                  <option value="Algeria" id="Algeria">Algeria</option>
-                  <option value="Botswana" id="Botswana">Botswana</option>
-                  <option value="Canada" id="Canada">Canada</option>
-                  <option value="Germany" id="Germany">Germany</option>
-                  <option value="Iceland" id="Iceland">Iceland</option>
-                  <option value="Japan" id="Japan">Japan</option>
-                  <option value="New Zealand" id="New Zealand">New Zealand</option>
-                  <option value="Sweden" id="Sweden">Sweden</option>
-                  <option value="United Kingdom" id="United Kingdom">United Kingdom</option>
-                </select>
-              </p>
-              <script src="script/map3.js"></script>
-              <script src="script/newChart.js"></script>
-            <script>extra()</script>
-        </div>
-    </div>
+  <div id="chart"></div>
+  <div id="map"></div>
+  <div id="controls">
+    <h2 id="country-label">Select a country</h2>
+    <button id="bar-chart-btn">Bar Chart</button>
+    <button id="pie-chart-btn">Pie Chart</button>
+  </div>
+  
+  
+  <script src="https://d3js.org/d3.v5.min.js"></script>
+  <script src="index.js"></script>
 </body>
-
 </html>

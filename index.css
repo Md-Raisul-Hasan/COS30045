@@ -1,0 +1,25 @@
+#chart {
+    width: 25%;
+    height: 600px;
+    float: left;
+  }
+  
+  #map {
+    width: 75%;
+    height: 600px;
+    float: right;
+  }
+  
+  .country {
+    fill: #ccc;
+    stroke: #333;
+    stroke-width: 0.5px;
+  }
+  
+  .country:hover {
+    fill: #aaa;
+  }
+  .bar {
+    fill: steelblue;
+  }
+  
