@@ -1,6 +1,6 @@
 // Define margins
 const margin = {top: 10, right: 10, bottom: 20, left: 40};
-const mapWidth = 900 - margin.left - margin.right;  // 3/4 of screen width
+const mapWidth = 1500 - margin.left - margin.right;  // 3/4 of screen width
 const mapHeight = 600 - margin.top - margin.bottom;
 const chartWidth = 300 - margin.left - margin.right;  // 1/4 of screen width
 const chartHeight = 600 - margin.top - margin.bottom;
@@ -12,6 +12,7 @@ const mapSvg = d3.select("#map")
     .attr("height", mapHeight + margin.top + margin.bottom)
     .append("g")
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
+    
 
 // Create SVG for bar chart
 const chartSvg = d3.select("#chart")
@@ -34,18 +35,22 @@ let migrationData;
 const buttonsDiv = d3.select("body").append("div");
 
 // Load CSV data
-d3.csv("Migration.csv").then(data => {
+d3.csv("csv/migration.csv").then(data => {
     migrationData = data;
     // Load and display the World
-    d3.json("worldGeo.json").then(world => {
+    d3.json("script/worldGeo.json").then(world => { 
+        // Define the default stroke and stroke width
+        const defaultStroke = "#333";
+        const defaultStrokeWidth = "1px";
         mapSvg.append("g")
             .selectAll("path")
             .data(world.features)
             .enter()
             .append("path")
             .attr("d", d3.geoPath().projection(d3.geoEquirectangular()))
-            .style("fill", "#ccc")
+            .style("fill", "#66c2a4")
             .style("stroke", "#333")
+            .style("stroke-width", defaultStrokeWidth)
             .on("click", d => {
                 // Add country name
                 buttonsDiv.html(`<h2>${d.properties.name}</h2>`);
@@ -58,6 +63,19 @@ d3.csv("Migration.csv").then(data => {
                 buttonsDiv.append("button")
                     .text("Pie chart")
                     .on("click", () => updatePiechart(d.properties.name));
+                })
+                .on("mouseover", function() {
+              
+                    // Apply hover effect
+                    d3.select(this)
+                        .style("stroke", "bold")
+                        .style("stroke-width", "2px");
+                })
+                .on("mouseout", function() {
+                                       // Reset to default style
+                    d3.select(this)
+                        .style("stroke", defaultStroke)
+                        .style("stroke-width", defaultStrokeWidth);
             });
     });
 });
