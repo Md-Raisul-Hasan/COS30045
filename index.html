@@ -1,26 +1,26 @@
-<<<<<<< HEAD
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-  <title>Interactive Map</title>
-  <link rel="stylesheet" href="css/index.css">
-  <link rel="stylesheet" href="css/style.css">
-  <script src="script/d3.v3.min.js"></script>
+    <meta charset="UTF-8">
+    <title>Migration Visualisation</title>
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script src="script/d3.v3.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
 </head>
+
 <body>
-  <div class="container">
-      <div class="toppane">
-          <h1>Australian Migration Statistics 2000-2020 Analysis</h1>
-      </div>
-      <div class="middlepane">
-          <h1>Interactive Map</h1>
-          <div id="map"></div>
-          <div id="controls">
-            <h2 id="country-label">Select a country</h2>
-          </div>
-      </div>
-      <div class="rightpane" id="rightpane">
+    <div id="map-container">
+        <h2>World Migration Map</h2>
+        <div id="map"></div>
+        <p id="country-label"></p>
+    </div>
+    <div id="chart-container">
+        <h2>Migration Data</h2>
         <div id="chart"></div>
+        <button id="bar-chart-btn">Bar Chart</button>
+        <button id="pie-chart-btn">Pie Chart</button>
+        <br>
         <p>Select a country:
           <select id="Choice" class="choice" onchange="extra(this)">
             <option value="All" id="All">All</option>
@@ -38,36 +38,11 @@
           </select>
         </p>
         <svg id="lineChart" width="100" height="100"></svg>
-  </div>
-  
-  
-<script src="https://d3js.org/d3.v5.min.js"></script>
-
-<script src="script/newChart.js"></script>
-<script src="script/index.js"></script>
+    </div>
+    <script src="script/common.js"></script>
+    <script src="script/map.js"></script>
+    <script src="script/barPieChart.js"></script>
+    <script src="script/lineChart.js"></script>
 </body>
-</html>
-=======
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Interactive Map</title>
-  <link rel="stylesheet" href="css/index.css">
-</head>
-<body>
-<div id="tooltip" ></div>
 
-  <div id="chart"></div>
-  <div id="map"></div>
-  <div id="controls">
-    <h2 id="country-label">Select a country</h2>
-    <button id="bar-chart-btn">Bar Chart</button>
-    <button id="pie-chart-btn">Pie Chart</button>
-  </div>
-  
-  
- 
- 
-</body>
 </html>
->>>>>>> 1ca93077c1980cacfd19d07d691658edefc12f23
