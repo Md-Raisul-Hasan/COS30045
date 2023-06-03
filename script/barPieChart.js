@@ -114,3 +114,15 @@ function updatePiechart(country) {
     // Update chart title
     chartTitle.text(`Migration Data for ${country}`);
 }
+
+function changeChartType() {
+    if (chartType == "bar") {
+        updatePiechart(selectedCountry);
+    }
+    else if (chartType == "pie") {
+        updateBarchart(selectedCountry);
+    }
+    else {
+        updatePiechart(selectedCountry);
+    }
+}

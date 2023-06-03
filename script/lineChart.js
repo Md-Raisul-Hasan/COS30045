@@ -1,24 +1,24 @@
 var p, rawdata, newdata, val, maxval,
   marg = {
     top: 20,
-    right: 20,
-    left: 50,
-    bottom: 20
+    right: 0, //20
+    left: 0, //50
+    bottom: 300
   },
-  w = 1000 - marg.left - marg.right,
+  w = 600 - marg.left - marg.right,
   h = 300; //window.innerHeight - 800 - marg.top - marg.bottom;
 var u = w + marg.left + marg.right,
   v = h + marg.top + marg.bottom + 25;
 
-p = d3v3.select('#rightpane').append("svg").attr("width", u).attr("height", v).attr("transform", "translate(" + marg.left + "," + marg.top + ")");
+p = d3v3.select('#chart').append("svg").attr("width", u).attr("height", v).attr("transform", "translate(" + marg.left + "," + marg.top + ")");
 
 function extra() {
   var key = document.getElementById('Choice').value;
   d3v3.selectAll('.lineGroup').each(function (d, i) {
     if (d.key === key || key == "All") {
       d3v3.select('.' + d.key).style('opacity', 1);
-      const myNode = document.getElementById("lineChart");
-      myNode.innerHTML = '';
+      //const myNode = document.getElementById("lineChartTitle");
+      //myNode.innerHTML = '';
       p
         .append("text")
         .attr("transform", "translate(100,0)")
@@ -32,7 +32,7 @@ function extra() {
   });
 }
 
-var slots = ["2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008"];
+var slots = ["1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997"];
 
 d3v3.csv("csv/Australia_data_redacted.csv")
   .row(function (d) {
@@ -55,7 +55,7 @@ d3v3.csv("csv/Australia_data_redacted.csv")
     p
       .append("text")
       .attr("transform", "translate(100,0)")
-      .attr("x", 200)
+      .attr("x", 10)
       .attr("y", 20)
       .attr("font-size", "20px")
       .text(document.getElementById('Choice').value + " - Foreign Migration Statistics 2001-2008"); // set chart title

@@ -11,6 +11,9 @@ const mapSvg = d3.select("#map")
     .attr("width", mapWidth)
     .attr("height", mapHeight);
 
+let migrationDataByYear;  // Declare migrationData only once
+let paths;
+
 // Load CSV data
 d3.csv("csv/migration.csv").then(data => {
     migrationData = data;
@@ -26,7 +29,7 @@ const colorScale = d3.scaleSequentialLog(d3.interpolateYlGnBu)
         // Define the default stroke and stroke width
         const defaultStroke = "#bdd7e7";
         const defaultStrokeWidth = "1px";
-        mapSvg.append("g")
+        paths = mapSvg.append("g")
             .selectAll("path")
             .data(world.features)
             .enter()
@@ -34,6 +37,7 @@ const colorScale = d3.scaleSequentialLog(d3.interpolateYlGnBu)
             .attr("d", d3.geoPath().projection(d3.geoEquirectangular()))
             .style("fill", function(d) {
                 const countryData = migrationData.find(data => data["Country of birth"] === d.properties.name);
+                const countryValue = migrationData.find(data => data["Value"] === d.properties.value);
                 if (d.properties.name === 'Australia') {
                     return "#993404";
                 } else if (countryData) {
@@ -46,27 +50,37 @@ const colorScale = d3.scaleSequentialLog(d3.interpolateYlGnBu)
             .style("stroke", defaultStroke)
             .style("stroke-width", defaultStrokeWidth)
             .on("click", d => {
-                // Display country name
-                d3.select("#country-label").text(d.properties.name);
-
-                // Update selected country
-                selectedCountry = d.properties.name;
-                
-                // Update lineChart to new country
-                document.getElementById('Choice').value = d.properties.Country || d.properties.name;
-                extra(document.getElementById('Choice').value);
-                            
-                // Bind click events to existing buttons
-                d3.select("#bar-chart-btn").on("click", () => updateBarchart(selectedCountry));
-                d3.select("#pie-chart-btn").on("click", () => updatePiechart(selectedCountry));
-                if (chartType == "bar") {
-                    updateBarchart(selectedCountry);
-                }
-                else if (chartType == "pie") {
-                    updatePiechart(selectedCountry);
+                if (d.properties.name == "Australia") {
+                    window.alert("You cannot view migration data from the originating destination! Please try another country.");
                 }
                 else {
-                    updatePiechart(selectedCountry);
+                    // Display country name
+                    d3.select("#country-label").text("Migration Data for " + d.properties.name);
+
+                    // Update selected country
+                    selectedCountry = d.properties.name;
+
+                    // Update all charts to new country
+                    document.getElementById('Choice').value = d.properties.Country || d.properties.name;
+                    const countryData = migrationData.find(data => data["Country of birth"] === d.properties.name);
+                    const value = countryData ? countryData["Value"] : "N/A";
+                    if (value == "N/A") {
+                        window.alert("There is no statistical information available for " + d.properties.name);
+                    }
+                    extra(document.getElementById('Choice').value);
+                                
+                    // Bind click events to existing buttons
+                    d3.select("#bar-chart-btn").on("click", () => updateBarchart(selectedCountry));
+                    d3.select("#pie-chart-btn").on("click", () => updatePiechart(selectedCountry));
+                    if (chartType == "bar") {
+                        updateBarchart(selectedCountry);
+                    }
+                    else if (chartType == "pie") {
+                        updatePiechart(selectedCountry);
+                    }
+                    else {
+                        updatePiechart(selectedCountry);
+                    }
                 }
             })
             .on("mouseover", function(d) {
@@ -99,3 +113,34 @@ const colorScale = d3.scaleSequentialLog(d3.interpolateYlGnBu)
             });
     });
 });
+
+// Create a function to redraw map based on selected year
+function drawMap(year) {
+    // Create a color scale
+    const colorScale = d3.scaleSequentialLog(d3.interpolateYlGnBu)
+        .domain([1, d3.max(migrationDataByYear, d => +d[year] || 0)]);
+
+    paths.style("fill", function(d) {
+            const countryData = migrationDataByYear.find(data => data["Name"] === d.properties.name);
+            if (countryData && countryData[year]) {
+                return colorScale(+countryData[year]);
+            } else {
+                return "#ccc";  // default color for countries without data
+            }
+        });
+}
+
+// Load CSV data
+d3.csv("csv/Australia_data.csv").then(data => {
+    migrationDataByYear = data;  // Assign value to migrationData
+    drawMap(1990);  // draw map for the default year
+});
+
+// Handle slider input for year selection
+const slider = d3.select("#year-input");
+const output = d3.select("#year-label");
+slider.on("input", function() {
+  output.text("Showing geo-data for: " + this.value);
+  drawMap(this.value);  // redraw map for the selected year
+});
+
