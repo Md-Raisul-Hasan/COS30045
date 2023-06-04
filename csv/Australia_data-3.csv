@@ -1,4 +1,4 @@
-Name,CODE,AreaName,RegName,DevName,val1,val2,val3,val4,val4,val5,val6,val7,val8,1989,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008
+Name,CODE,AreaName,RegName,DevName,1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018
 Afghanistan,AFG,Asia,Southern Asia,Developing regions,10,20,30,30,70,100,110,90,100,60,150,460,410,400,200,220,200,150,250,270,100,20,40,70,80,110,180,140,560
 Albania,ALB,Europe,Southern Europe,Developed regions,0,0,0,0,0,0,0,0,0,0,10,80,40,30,30,100,90,80,80,70,110,110,200,250,140,130,110,110,140
 Algeria,DZA,Africa,Northern Africa,Developing regions,10,50,30,10,20,20,10,10,20,20,20,30,20,20,20,20,20,20,10,30,20,30,60,20,20,50,30,30,60
@@ -165,7 +165,7 @@ Republic of Korea,KOR,Asia,Eastern Asia,Developing regions,390,620,1030,870,880,
 Republic of Moldova,MDA,Europe,Eastern Europe,Developed regions,0,0,0,0,0,0,0,0,0,0,0,0,30,10,30,30,20,20,10,20,30,20,30,40,10,40,30,20,40
 Réunion,REU,Africa,Eastern Africa,Developing regions,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,20,20,20,30,20,40,80,100,120,110
 Romania,ROU,Europe,Eastern Europe,Developed regions,180,240,230,240,270,270,340,350,620,700,720,490,470,400,420,410,480,440,330,400,350,410,370,390,360,340,300,310,290
-Russian Federation,RUS,Europe,Eastern Europe,Developed regions,0,0,0,0,0,0,0,0,0,0,0,0,110,170,160,230,260,390,380,480,530,820,960,900,960,1010,960,1170,1510
+Russia,RUS,Europe,Eastern Europe,Developed regions,0,0,0,0,0,0,0,0,0,0,0,0,110,170,160,230,260,390,380,480,530,820,960,900,960,1010,960,1170,1510
 Rwanda,RWA,Africa,Eastern Africa,Developing regions,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,10,0,0,10,10,0,20,10,0,50,40,20
 Saint Helena,SHN,Africa,Western Africa,Developing regions,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 Saint Kitts and Nevis,KNA,Latin America and the Caribbean,Caribbean,Developing regions,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
@@ -209,13 +209,13 @@ Ukraine,UKR,Europe,Eastern Europe,Developed regions,0,0,0,0,0,0,0,0,0,0,0,0,550,
 United Arab Emirates,ARE,Asia,Western Asia,Developing regions,40,70,80,130,140,140,180,280,480,550,400,330,330,300,410,580,640,740,720,940,1080,1920,2630,3140,2760,3660,4680,3760,4160
 United Kingdom of Great Britain and Northern Ireland,GBR,Europe,Northern Europe,Developed regions,43540,57050,51730,31660,25150,27630,35910,38980,45550,44620,45860,42820,36580,34720,36180,39040,40540,42010,42700,49310,51000,52940,57330,70150,53140,53300,57250,61490,65160
 United Republic of Tanzania,TZA,Africa,Eastern Africa,Developing regions,70,120,100,90,110,120,100,70,70,100,60,110,120,100,110,110,90,110,90,70,110,120,170,200,200,930,890,1280,760
-United States of America,USA,Northern America,Northern America,Developed regions,10470,12080,12490,11110,11840,12480,12600,13140,13720,14410,14300,13810,13290,13260,15020,16450,16440,16760,18300,18740,18030,19230,18950,18980,18540,18490,17320,19260,20860
+United States,USA,Northern America,Northern America,Developed regions,10470,12080,12490,11110,11840,12480,12600,13140,13720,14410,14300,13810,13290,13260,15020,16450,16440,16760,18300,18740,18030,19230,18950,18980,18540,18490,17320,19260,20860
 United States Virgin Islands,VGB,Latin America and the Caribbean,Caribbean,Developing regions,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 Uruguay,URY,Latin America and the Caribbean,South America,Developing regions,310,280,220,170,390,280,300,260,230,220,180,270,220,150,130,160,160,130,70,110,110,100,140,140,80,110,90,90,100
 Uzbekistan,UZB,Asia,Central Asia,Developing regions,0,0,0,0,0,0,0,0,0,0,0,0,0,20,30,40,50,30,30,40,30,30,50,70,80,70,60,80,110
 Vanuatu,VUT,Oceania,Melanesia,Developing regions,150,140,170,140,170,170,180,230,210,210,240,220,280,210,230,190,190,190,190,130,140,170,160,150,400,350,390,400,400
 Venezuela (Bolivarian Republic of),VEN,Latin America and the Caribbean,South America,Developing regions,90,70,70,80,60,80,90,80,70,50,80,70,50,60,90,80,120,130,100,100,110,120,130,130,130,180,160,160,250
-Viet Nam,VNM,Asia,South-Eastern Asia,Developing regions,130,70,200,920,2860,2140,3030,1680,2030,4260,7880,7910,5840,4160,4220,4680,4000,3730,3850,3250,3430,3800,4410,4840,4500,5110,6610,8310,11210
+Vietnam,VNM,Asia,South-Eastern Asia,Developing regions,130,70,200,920,2860,2140,3030,1680,2030,4260,7880,7910,5840,4160,4220,4680,4000,3730,3850,3250,3430,3800,4410,4840,4500,5110,6610,8310,11210
 Wallis and Futuna Islands,WLF,Oceania,Polynesia,Developing regions,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,10,0,0,0,0
 Western Sahara,ESH ,Africa,Northern Africa,Developing regions,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0
 Yemen,YEM,Asia,Western Asia,Developing regions,10,0,0,10,20,10,0,0,0,0,20,10,0,10,10,0,0,10,20,20,20,60,40,150,40,20,10,40,40

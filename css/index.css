@@ -17,7 +17,6 @@ body, html {
 }
 
 #chart-container {
-  margin-top: -100px;
   width: 40%;
   height: 100%;
   float: right;
@@ -41,7 +40,7 @@ body, html {
   background-color: #303f9f;
 }
 
-#map, #chart, #lineChart {
+#map, #chart {
   width: 100%;
   height: 80%;
   border: 1px solid #ddd;
@@ -49,9 +48,13 @@ body, html {
 }
 
 #country-label {
-  margin-top: 20px;
+  margin-top: 10px;
   text-align: center;
   font-size: 24px;
+}
+
+#bar-chart-btn, #pie-chart-btn {
+  visibility: hidden;
 }
 
 #btnChangeChartType , #pSelectCountry, #container {

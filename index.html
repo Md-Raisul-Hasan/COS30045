@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="css/index.css">
     <script src="script/d3.v3.min.js"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-legend/2.25.6/d3-legend.js"></script>
 </head>
 
 <body>
@@ -14,41 +15,27 @@
         <h2>World Migration Map</h2>
         <div id="map">
         </div>
+        <svg id="legendLinear"></svg>
         <div id="year-input-container">
           <input type="range" min="1990" max="2018" value="1990" class="slider" id="year-input">
-          <label for="year-input" id="year-label">Showing geo-data for: 1990</label>
+          <label for="year-input" id="year-label">Showing migration geo-data for: 2018</label>
       </div>
     </div>
     <div id="chart-container">
+      <div class="chart" id="chart1">
         <h2><p id="country-label">Migration Data</p></h2>
-        
-        
-        
         <div id="chart">
+          Toggle Pie/Bar Chart
           <input type="checkbox" id="switch" onclick="changeChartType()"/>
           <label for="switch"></label>
-          <div id="container">
-            <input type="text" name="searchArea"></input>
-            <div id="results"></div>
-          </div>
-          <p id="pSelectCountry">Select a country:
-            <select id="Choice" class="choice" onchange="extra(this)">
-              <option value="All" id="All">All</option>
-              <option value="Australia" id="Australia">Australia</option>
-              <option value="Afghanistan" id="Afghanistan">Afghanistan</option>
-              <option value="Algeria" id="Algeria">Algeria</option>
-              <option value="Botswana" id="Botswana">Botswana</option>
-              <option value="Canada" id="Canada">Canada</option>
-              <option value="Germany" id="Germany">Germany</option>
-              <option value="Iceland" id="Iceland">Iceland</option>
-              <option value="Japan" id="Japan">Japan</option>
-              <option value="New Zealand" id="New Zealand">New Zealand</option>
-              <option value="Sweden" id="Sweden">Sweden</option>
-              <option value="United Kingdom" id="United Kingdom">United Kingdom</option>
-            </select>
-            <div id="lineChartTitle"></div>
         </div>
+        <button id="bar-chart-btn">Bar Chart</button>
+        <button id="pie-chart-btn">Pie Chart</button>
         </p>
+      </div>
+      <div id="chart">
+        <div id="lineChart" style="margin-top:0px;"></div>  <!-- adjust the margin-top value if needed -->
+      </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="script/search.js" type="text/javascript"></script>
@@ -56,7 +43,7 @@
     <script src="script/map.js"></script>
     <script src="script/barPieChart.js"></script>
     <script src="script/lineChart.js"></script>
-    <script>extra()</script>
+    <script>updateLinechart("Canada")</script>
 </body>
 
 </html>

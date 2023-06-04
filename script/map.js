@@ -29,6 +29,7 @@ const colorScale = d3.scaleSequentialLog(d3.interpolateYlGnBu)
         // Define the default stroke and stroke width
         const defaultStroke = "#bdd7e7";
         const defaultStrokeWidth = "1px";
+        
         paths = mapSvg.append("g")
             .selectAll("path")
             .data(world.features)
@@ -61,6 +62,7 @@ const colorScale = d3.scaleSequentialLog(d3.interpolateYlGnBu)
                     selectedCountry = d.properties.name;
 
                     // Update all charts to new country
+                    /*
                     document.getElementById('Choice').value = d.properties.Country || d.properties.name;
                     const countryData = migrationData.find(data => data["Country of birth"] === d.properties.name);
                     const value = countryData ? countryData["Value"] : "N/A";
@@ -68,6 +70,7 @@ const colorScale = d3.scaleSequentialLog(d3.interpolateYlGnBu)
                         window.alert("There is no statistical information available for " + d.properties.name);
                     }
                     extra(document.getElementById('Choice').value);
+                    */
                                 
                     // Bind click events to existing buttons
                     d3.select("#bar-chart-btn").on("click", () => updateBarchart(selectedCountry));
@@ -81,6 +84,7 @@ const colorScale = d3.scaleSequentialLog(d3.interpolateYlGnBu)
                     else {
                         updatePiechart(selectedCountry);
                     }
+                    document.dispatchEvent(new CustomEvent('countrySelected', {detail: d.properties.name}));
                 }
             })
             .on("mouseover", function(d) {
@@ -133,14 +137,33 @@ function drawMap(year) {
 // Load CSV data
 d3.csv("csv/Australia_data.csv").then(data => {
     migrationDataByYear = data;  // Assign value to migrationData
-    drawMap(1990);  // draw map for the default year
+    drawMap(2018);  // draw map for the default year i.e. 2018
 });
 
 // Handle slider input for year selection
 const slider = d3.select("#year-input");
 const output = d3.select("#year-label");
 slider.on("input", function() {
-  output.text("Showing geo-data for: " + this.value);
+  output.text("Showing migration geo-data for: " + this.value);
   drawMap(this.value);  // redraw map for the selected year
 });
+          
+var linear = d3.scaleLinear()
+.domain([0,10])
+.range(["rgb(165, 213, 223)", "rgb(46, 73, 123)"]);
 
+var svg = d3.select("svg");
+
+svg.append("g")
+.attr("class", "legendLinear")
+.attr("transform", "translate(600,500)");
+//mapWidth,mapHeight
+
+var legendLinear = d3.legendColor()
+.shapeWidth(30)
+.cells(10)
+.orient('horizontal')
+.scale(linear);
+
+svg.select(".legendLinear")
+.call(legendLinear);

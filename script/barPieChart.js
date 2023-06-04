@@ -52,6 +52,7 @@ function updateBarchart(country) {
         .data(data)
         .enter()
         .append("rect")
+        .attr("fill", "#005c99")
         .attr("class", "bar")
         .attr("x", d => xScale(d["AGE"]))
         .attr("y", d => yScale(+d["Value"]))
@@ -104,12 +105,14 @@ function updatePiechart(country) {
         .attr("d", arc)
         .style("fill", (d, i) => d3.schemeCategory10[i]);
 
+    const totalValue = d3.sum(ageGroupsValues, d => d.value);
+
     // Append text labels to each arc
     arcs.append("text")
         .attr("transform", d => `translate(${arc.centroid(d)})`)
         .attr("dy", ".35em")
         .style("text-anchor", "middle")
-        .text(d => `${d.data.age}: ${d.data.value}`);
+        .text(d => `${d.data.age}: ${(d.value / totalValue * 100).toFixed(2)}%`);
 
     // Update chart title
     chartTitle.text(`Migration Data for ${country}`);

@@ -1,96 +1,114 @@
-var p, rawdata, newdata, val, maxval,
-  marg = {
-    top: 20,
-    right: 0, //20
-    left: 0, //50
-    bottom: 300
-  },
-  w = 600 - marg.left - marg.right,
-  h = 300; //window.innerHeight - 800 - marg.top - marg.bottom;
-var u = w + marg.left + marg.right,
-  v = h + marg.top + marg.bottom + 25;
+console.log("Unicorns are here!");
 
-p = d3v3.select('#chart').append("svg").attr("width", u).attr("height", v).attr("transform", "translate(" + marg.left + "," + marg.top + ")");
+// Define margins
+const lineChartMargin = { top: 20, right: 20, bottom: 30, left: 50 };
 
-function extra() {
-  var key = document.getElementById('Choice').value;
-  d3v3.selectAll('.lineGroup').each(function (d, i) {
-    if (d.key === key || key == "All") {
-      d3v3.select('.' + d.key).style('opacity', 1);
-      //const myNode = document.getElementById("lineChartTitle");
-      //myNode.innerHTML = '';
-      p
-        .append("text")
-        .attr("transform", "translate(100,0)")
-        .attr("x", 200)
-        .attr("y", 20)
-        .attr("font-size", "20px")
-        .text(document.getElementById('Choice').value + " - Foreign Migration Statistics 2001-2008"); // set chart title
-    } else {
-      d3v3.select('.' + d.key).style('opacity', 0);
-    }
-  });
+const lineChartSvg = d3
+  .select("#chart1") // Select the correct chart container element
+  .append("svg")
+  .attr("width", "100%")
+  .attr("height", "100%")
+  .append("g")
+  .attr("transform", `translate(${lineChartMargin.left}, ${lineChartMargin.top})`);
+
+let lineChartWidth = parseInt(d3.select("#chart1").style("width")) - lineChartMargin.left - lineChartMargin.right;
+let lineChartHeight = parseInt(d3.select("#chart1").style("height")) - lineChartMargin.top - lineChartMargin.bottom;
+
+// Scales
+const xScale = d3.scaleLinear().range([0, lineChartWidth]);
+const yScale = d3.scaleLinear().range([lineChartHeight, 0]);
+
+// Line generator
+const line = d3
+  .line()
+  .x((d) => xScale(d.year))
+  .y((d) => yScale(d.value));
+
+// Load data for line chart
+function loadLineChartData() {
+  d3.csv("csv/Australia_data.csv").then((data) => {
+    const migrationData = data;
+    console.log("Data for line chart loaded successfully.");
+
+    // Log all country names in the dataset
+    let countryNames = migrationData.columns.slice(5); // Extract country names from the CSV columns
+    console.log("Country names in dataset: ", countryNames);
+
+    // Event listener for country selection
+    document.addEventListener("countrySelected", (e) => {
+      const selectedCountry = e.detail;
+
+      // Call the update function with the selected country and data
+      updateLinechart(selectedCountry, migrationData);
+    });
+  }).catch((error) => console.error("Error loading data: ", error));
 }
 
-var slots = ["1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997"];
+// Update function for line chart
+function updateLinechart(country, data) {
+  console.log(`Updating line chart for country: ${country}`);
+  let countryData = data.find((d) => d.Name === country);
+  if (!countryData) {
+    console.error(`No data found for country: ${country}`);
+    return;
+  }
 
-d3v3.csv("csv/Australia_data_redacted.csv")
-  .row(function (d) {
-    return {
-      key: d.Name,
-      values: [+d.val1, +d.val2, +d.val3, +d.val4, +d.val5, +d.val6, +d.val7, +d.val8]
-    };
-  })
-  .get(function (error, data) {
-    var rangeX = d3v3.scale.ordinal().rangeRoundBands([0, w], 0.2).domain(slots);
-    var rangeY = d3v3.scale.linear().range([h, 0]).domain([0, d3v3.max(data, function (d, i) {
-      return d3v3.max(d.values);
-    })]);
-    var xAxis = d3v3.svg.axis().scale(rangeX).tickSize(2);
-    var yAxis = d3v3.svg.axis().scale(rangeY).tickSize(2).ticks(14).orient("left");
-    //adding the axes
-    p.append("g").call(xAxis).attr("transform", "translate(0," + (h) + ")");;
-    p.append("g").call(yAxis).attr("transform", "translate(50,0)");
+  let lineChartData = Object.entries(countryData)
+    .filter(([key, value]) => !isNaN(+key))
+    .map(([year, value]) => ({ year: +year, value: +value }));
 
-    p
-      .append("text")
-      .attr("transform", "translate(100,0)")
-      .attr("x", 10)
-      .attr("y", 20)
-      .attr("font-size", "20px")
-      .text(document.getElementById('Choice').value + " - Foreign Migration Statistics 2001-2008"); // set chart title
+  xScale.domain(d3.extent(lineChartData, (d) => d.year));
+  yScale.domain([0, d3.max(lineChartData, (d) => d.value)]);
 
-    //adding text to x- and y-axes
-    p.append("text").attr("x", (w - marg.right) / 2).attr("y", (h - marg.top + 50)).style("font-size", "14px").text("Year");
-    p.append("text").attr("transform", "rotate(-90)").attr("x", 0 - (h / 2)).attr("y", (marg.left - 87)).style("font-size", "14px").text("Population");
+  // Remove old content from the lineChartSvg
+  lineChartSvg.selectAll("*").remove();
 
-    var line = d3v3.svg.line()
-      .interpolate("linear")
-      .x(function (d, i) {
-        return rangeX(slots[i]);
-      })
-      .y(function (d, i) {
-        return rangeY(d);
-      });
+  // Draw line
+  lineChartSvg
+    .append("path")
+    .datum(lineChartData)
+    .attr("fill", "none")
+    .attr("stroke", "steelblue")
+    .attr("stroke-width", 1.5)
+    .attr("d", line);
 
-    var color = d3v3.scale.category10();
+  // Add points
+  lineChartSvg
+    .selectAll(".dot")
+    .data(lineChartData)
+    .enter()
+    .append("circle")
+    .attr("class", "dot")
+    .attr("cx", (d) => xScale(d.year))
+    .attr("cy", (d) => yScale(d.value))
+    .attr("r", 5)
+    .on("mouseover", function (d) {
+      tooltip.transition().duration(200).style("opacity", 0.9);
+      tooltip
+        .html("Year: " + d.year + "<br/>" + "Value: " + d.value)
+        .style("left", 1000 + "px")
+        .style("top", d3.event.pageY - 28 + "px");
+    })
+    .on("mouseout", function (d) {
+      tooltip.transition().duration(500).style("opacity", 0);
+    });
 
-    var g = p.selectAll(".lineGroup")
-      .data(data)
-      .enter().append("g")
-      .attr("class", function (d, i) {
-        return "lineGroup " + d.key;
-      });
+  // Add x-axis
+  lineChartSvg
+    .append("g")
+    .attr("transform", `translate(0, ${lineChartHeight})`)
+    .call(d3.axisBottom(xScale).tickFormat(d3.format("d")));
 
-    g.append("path")
-      .attr("class", "line")
-      .attr("d", function (d) {
-        return line(d.values);
-      })
-      .style("stroke", function (d, i) {
-        return color(i);
-      })
-      .attr("fill", "none");
+  // Add y-axis
+  lineChartSvg.append("g").call(d3.axisLeft(yScale));
+}
 
+// Tooltip
+const tooltip = d3
+  .select("lineChart")
+  .append("div")
+  .attr("class", "tooltip")
+  .style("opacity", 0);
 
-  });
+// Load data for line chart
+loadLineChartData();
