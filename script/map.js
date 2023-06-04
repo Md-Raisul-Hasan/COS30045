@@ -98,11 +98,16 @@ const colorScale = d3.scaleSequentialLog(d3.interpolateYlGnBu)
                 const value = countryData ? countryData["Value"] : "N/A";
             
                 d3.select("#tooltip")
-                    .style("opacity", 1)
-                    .html(`<strong>Country:</strong> ${d.properties.name}<br>
-                           <strong>Value:</strong> ${value}`)
-                    .style("left", (d3.event.pageX + 10) + "px")
-                    .style("top", (d3.event.pageY - 10) + "px");
+                .style("opacity", 1)
+                .html(`<strong>Country:</strong> ${d.properties.name}<br>
+                       <strong>Value:</strong> ${value}`)
+                .style("left", (d3.event.pageX + 10) + "px")
+                .style("top", (d3.event.pageY - 10) + "px")
+                .style("background-color", "rgba(0, 0, 0, 0.8)") // Update background color
+                .style("color", "#fff") // Update text color
+                .style("padding", "10px") // Update padding
+                .style("border-radius", "5px"); // Update border-radius
+
             })
             
             .on("mouseout", function() {
