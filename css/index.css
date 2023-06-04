@@ -17,6 +17,7 @@ body, html {
 }
 
 #chart-container {
+  margin-top: -100px;
   width: 40%;
   height: 100%;
   float: right;
@@ -48,7 +49,7 @@ body, html {
 }
 
 #country-label {
-  margin-top: 10px;
+  margin-top: 20px;
   text-align: center;
   font-size: 24px;
 }
